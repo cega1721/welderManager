@@ -1,33 +1,71 @@
+import Cliente from "./Cliente.js";
 import Material from "./Material.js";
 import Foto from "./Foto.js";
 import Medida from "./Medida.js"
+import ESTADOS_PROYECTO from "../constants/estadosProyecto.js";
 
 class Proyecto {
-    constructor(
+    constructor({
         id,
         cliente,
         tipoTrabajo,
         responsable,
-        fecchaInicio
-    ){
+        fechaInicio = new Date(),
+        estado = "Pendiente",
+       
+
+    }){
+
+        if (id === undefined || id === null) {
+            throw new Error("El proyecto debe tener un id.");
+        
+        }
+
+        //Validar que exista un cliente 
+
+        if(!cliente){
+            throw new Error("El proyecto debe tener un cliente.");
+        }
+
+        // Validar que sea una instancia de Cliente
+
+        if (!(cliente instanceof Cliente)) {
+            throw new Error("cliente debe ser una instancia de Cliente.");
+            
+        }
+
+        // Validar tipo de trabajo 
+
+        if (!tipoTrabajo){
+            throw new Error("El proyecto debe tener un tipo de trabajo.");
+
+        }
+
+        if (!responsable) {
+            throw new Error("Debe indicar un responsable.");
+        
+        }
+
+        
+
         this.id = id;
         this.cliente = cliente;
         this.tipoTrabajo = tipoTrabajo;
         this.responsable = responsable;
-        this.fechaInicio = fecchaInicio;
-        this.estado = "Pendiente";
+        this.fechaInicio = fechaInicio;
+        this.estado = estado;
+
         this.medidas = [];
         this.materiales = [];
         this.fotos = [];
     }
 
+
     agregarMaterial(material){
 
         if(!(material instanceof Material)){
 
-            console.log("Debe enviar un MAterial.");
-
-            return;
+            throw new Error("Debe de enviar una instancia de Material.");
             
         }
 
@@ -35,17 +73,20 @@ class Proyecto {
     
     }
 
+    agregarMedida(medida){
+        if (!(medida instanceof Medida)){
+            throw new Error("Debe de enviar una instancia de Medida.");
+
+        }
+        this.medidas.push(medida);
+    }
+
     agregarFoto(foto){
         if(!(foto instanceof Foto)){
-            console.log("La foto debe tener un nombre.")
-
-            return;
+            throw new Error("Debe de enviar una instancia de Foto.");
         }
         this.fotos.push(foto);    
     }
-
-    
-
 
     cambiarEstado(nuevoEstado){
 
@@ -60,95 +101,14 @@ class Proyecto {
         ];
 
         if(!estadosValidos.includes(nuevoEstado)){
-            console.log("Estado no valido");
-            return;
+            throw new Error("Estado no valido.")
         }
         
         this.estado = nuevoEstado;
     }
 
-}
-
-const proyecto1 = new Proyecto(
-    1,
-    "Carlos",
-    "Puerta",
-    "John Mario Molina M",
-    "2026-07-14"
-);
-
-proyecto1.agregarMaterial(material1);
-console.log(proyecto1);
-
-
-const proyecto = new Proyecto(
-    2,
-    "cliente de prueba",
-
-    "Practica",
-
-    "john",
-
-    "2026-07-21",
-
-    new Date()
-);
-
-const material1 = new Material(
-    "Tubo estructural",
-    "2 x 1",
-    16,
-    6,
-    "metros",
-    8
-);
-
-const cliente = new Cliente({
-  nombre: "Carlos Gómez",
-  telefono: "3001234567",
-  direccion: "Calle 10 #25-18",
-  barrio: "Belén",
-  ciudad: "Medellín",
-  correo: "carlos@gmail.com",
-  observaciones: "Prefiere contacto por WhatsApp."
-});
-
-const UNIDADES = {
-    MILIMETROS: "mm",
-    CENTIMETROS: "cm",
-    PULGADAS: "in"
 };
 
-const medida = new Medida({
-    ancho: 900,
-    alto: 2100,
-    unidad: UNIDADES.MILIMETROS,
-    espesor: 40,
-    tipoApertura: "Derecha",
-    calibreMaterial: "calibre 18",
-    descuentoHolgura: 5,
-    observaciones: [
-        "el piso tiene una ligera pendiente."
 
-    ]
-});
-console.log(cliente.obtenerInformacion());
-
-cliente.actualizarTelefono("3119876543");
-
-
-
-proyecto.agregarMaterial("Tubo 2x1");
-
-proyecto.agregarMaterial("Platina");
-
-proyecto.cambiarEstado("Terminado");
-
-proyecto.agregarFoto(foto1);
-console.log(proyecto.fotos)
-
-console.log(proyecto.materiales);
-
-console.log(proyecto.estado);
 
 export default Proyecto;
