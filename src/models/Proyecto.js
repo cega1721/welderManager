@@ -69,11 +69,23 @@ class Proyecto {
             
         }
 
+        const existe = this.materiales.some(
+            m =>
+                 m.nombre === material.nombre &&
+                 m.perfil === material.perfil &&
+                 m.calibre === material.calibre
+        );
+
+        if (existe) {
+            throw new Error("Ese material ya fue agregado al proyecto");
+        }
+
         this.materiales.push(material);
     
     }
 
     agregarMedida(medida){
+
         if (!(medida instanceof Medida)){
             throw new Error("Debe de enviar una instancia de Medida.");
 
@@ -90,6 +102,7 @@ class Proyecto {
 
     cambiarEstado(nuevoEstado){
 
+        
         const estadosValidos = [
 
             "Pendiente",

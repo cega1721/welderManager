@@ -12,16 +12,27 @@ const cliente = new Cliente({
     ciudad: "Medellín"
 });
 
-const proyecto = new Proyecto(
-     1,
+const proyecto = new Proyecto({
+     id: 1,
     cliente,
-    "Puerta",
-    "John Mario Molina Martínez",
-    new Date()
+    tipoTrabajo: "Puerta",
+    responsable: "John Mario Molina Martínez"
+});
+
+const material = new Material(
+
+    "Tubo estructural",
+    "2x1",
+    16,
+    6,
+    "metros",
+    8
 );
-
-const material = new Material();
-
+/*
 const foto = new Foto();
 
 const medida = new Medida();
+*/
+proyecto.agregarMaterial(material);
+
+console.log(proyecto);
