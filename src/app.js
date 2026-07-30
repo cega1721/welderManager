@@ -3,6 +3,9 @@ import Proyecto from "./models/Proyecto.js";
 import Material from "./models/Material.js";
 import Foto from "./models/Foto.js";
 import Medida from "./models/Medida.js";
+import ProyectoRepository from "./repositories/ProyectoRepository.js";
+
+
 
 const cliente = new Cliente({
     nombre: "Carlos Gómez",
@@ -18,6 +21,12 @@ const proyecto = new Proyecto({
     tipoTrabajo: "Puerta",
     responsable: "John Mario Molina Martínez"
 });
+
+const repositorio = new ProyectoRepository();
+
+repositorio.agregar(proyecto);
+
+console.log(repositorio);
 
 const material = new Material(
 
