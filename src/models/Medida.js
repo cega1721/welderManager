@@ -1,3 +1,5 @@
+
+
 class Medida {
     constructor({
         ancho,
@@ -38,3 +40,5 @@ class Medida {
     }
 
 };
+
+export default Medida;

@@ -1,3 +1,4 @@
+
 class Foto {
         constructor(
             nombre,
@@ -23,3 +24,5 @@ class Foto {
 
         "Estado inicial"
     );
+
+    export default Foto;

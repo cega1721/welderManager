@@ -21,6 +21,10 @@ class ProyectoRepository {
 
         this.proyectos.push(proyecto);
     }
+
+    obtenerTodos() {
+        return this.proyectos;
+    }
 }
 
 export default ProyectoRepository;

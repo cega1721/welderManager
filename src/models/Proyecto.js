@@ -120,6 +120,8 @@ class Proyecto {
         this.estado = nuevoEstado;
     }
 
+    
+
 };
 
 
