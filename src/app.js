@@ -40,10 +40,11 @@ repositorio.agregar(proyecto);
 console.log(repositorio.obtenerTodos());
 
 
+
+    
+
 /*
 const foto = new Foto();
 
 const medida = new Medida();
 */
-
-

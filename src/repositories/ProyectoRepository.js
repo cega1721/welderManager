@@ -25,6 +25,24 @@ class ProyectoRepository {
     obtenerTodos() {
         return this.proyectos;
     }
+
+    buscarPorId(id){
+
+
+        const proyectoEncontrado = this.proyectos.find(
+            proyecto =>
+                 proyecto.id === id
+                
+        )
+
+        if (!proyectoEncontrado) {
+            throw new Error("No se encontro el proyecto");
+        }
+
+        return proyectoEncontrado;
+    
+    
+   }
 }
 
 export default ProyectoRepository;
