@@ -50,7 +50,16 @@ repositorio.agregar(proyecto2);
 console.log(repositorio.obtenerTodos());
 console.log(repositorio.buscarPorCliente("Pedro"));
 
+console.log("Antes de eliminar:");
+console.log(repositorio.obtenerTodos());
 
+const proyectoEliminado = repositorio.eliminarPorId(2);
+
+console.log("Proyecto eliminado:");
+console.log(proyectoEliminado);
+
+console.log("Después de eliminar:");
+console.log(repositorio.obtenerTodos());
 
     
 

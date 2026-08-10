@@ -23,7 +23,7 @@ class ProyectoRepository {
     }
 
     obtenerTodos() {
-        return this.proyectos;
+        return [...this.proyectos];
     }
 
     buscarPorId(id){
@@ -48,6 +48,18 @@ class ProyectoRepository {
             clienteBuscado.toLowerCase())
     );
 
+}
+
+eliminarPorId(id) {
+    const indice = this.proyectos.findIndex(
+        proyecto => proyecto.id === id
+    );
+
+    if (indice === -1) {
+        throw new Error("No se encontró el proyecto.");
+    }
+
+    return this.proyectos.splice(indice, 1)[0];
 }
 
 }
