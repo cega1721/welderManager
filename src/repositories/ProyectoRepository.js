@@ -5,7 +5,7 @@ class ProyectoRepository {
         this.proyectos = [];
     }
 
-    agregar(proyecto) {
+     agregar(proyecto) {
 
         if (!(proyecto instanceof Proyecto)) {
             throw new Error("Debe enviar una instancia de Proyecto.");
@@ -30,10 +30,9 @@ class ProyectoRepository {
 
 
         const proyectoEncontrado = this.proyectos.find(
-            proyecto =>
-                 proyecto.id === id
+            proyecto => proyecto.id === id
                 
-        )
+        );
 
         if (!proyectoEncontrado) {
             throw new Error("No se encontro el proyecto");
@@ -41,8 +40,16 @@ class ProyectoRepository {
 
         return proyectoEncontrado;
     
-    
-   }
+    }
+
+   buscarPorCliente(clienteBuscado) {
+    return this.proyectos.filter(
+        proyecto => proyecto.cliente.nombre.toLowerCase().includes(
+            clienteBuscado.toLowerCase())
+    );
+
+}
+
 }
 
 export default ProyectoRepository;

@@ -59,6 +59,7 @@ class Proyecto {
         this.materiales = [];
         this.fotos = [];
     }
+    
 
 
     agregarMaterial(material){

@@ -21,6 +21,15 @@ const proyecto = new Proyecto({
     responsable: "John Mario Molina Martínez"
 });
 
+const proyecto2 = new Proyecto({
+    id: 2,
+    cliente,
+    tipoTrabajo: "Ventana",
+    responsable: "John Mario Molina Martínez"
+});
+
+
+
 const material = new Material(
 
     "Tubo estructural",
@@ -36,8 +45,10 @@ proyecto.agregarMaterial(material);
 const repositorio = new ProyectoRepository();
 
 repositorio.agregar(proyecto);
+repositorio.agregar(proyecto2);
 
 console.log(repositorio.obtenerTodos());
+console.log(repositorio.buscarPorCliente("Pedro"));
 
 
 
