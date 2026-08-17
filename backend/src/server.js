@@ -21,6 +21,71 @@ app.get("/api/proyectos", (req, res) => {
     res.json(repositorio.obtenerTodos());
 });
 
+app.get("/api/proyectos/:id", (req, res) => {
+
+    try {
+
+        const id = Number(req.params.id);
+
+        const proyecto = repositorio.buscarPorId(id);
+
+        res.json(proyecto);
+
+    } catch (error) {
+
+        res.status(404).json({
+            message: error.message
+        });
+
+    }
+});
+
+app.delete("/api/proyectos/:id", (req, res) => {
+
+    try {
+
+        const id = Number(req.params.id);
+
+        const proyectoEliminado = repositorio.eliminarPorId(id);
+
+        res.json({
+            message: "Proyecto eliminado correctamente",
+            proyecto: proyectoEliminado
+        });
+
+    } catch (error) {
+
+        res.status(404).json({
+            message: error.message
+        });
+
+    }
+});
+
+app.put("/api/proyectos/:id", (req, res) => {
+
+    try {
+
+        const id = Number(req.params.id);
+
+        const proyecto = repositorio.buscarPorId(id);
+
+        const resultado = proyecto.actualizarProyecto(req.body);
+
+        res.json({
+            message: resultado.mensaje,
+            proyecto
+        });
+
+    } catch (error) {
+
+        res.status(400).json({
+            message: error.message
+        });
+
+    }
+});
+
 app.post("/api/proyectos", (req, res) => {
 
     const datos = req.body;
