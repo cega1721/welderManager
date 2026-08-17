@@ -1,46 +1,44 @@
 import Proyecto from "../models/Proyecto.js";
+import AppError from "../../backend/src/middlewares/AppError.js";
 
 class ProyectoRepository {
     constructor() {
         this.proyectos = [];
+        this.siguienteId = 1;
     }
 
      agregar(proyecto) {
 
-        if (!(proyecto instanceof Proyecto)) {
-            throw new Error("Debe enviar una instancia de Proyecto.");
-        }
-
-        const existeProyecto = this.proyectos.some(
-            p => p.id === proyecto.id
-        );
-
-        if (existeProyecto) {
-            throw new Error("Ese proyecto ya fue agregado al repositorio.");
-        }
-
-        this.proyectos.push(proyecto);
+    if (!(proyecto instanceof Proyecto)) {
+        throw new Error("Debe enviar una instancia de Proyecto.");
     }
+
+    proyecto.id = this.siguienteId;
+
+    this.siguienteId++;
+
+    this.proyectos.push(proyecto);
+}
 
     obtenerTodos() {
         return [...this.proyectos];
     }
 
-    buscarPorId(id){
+   buscarPorId(id) {
 
+    const proyectoEncontrado = this.proyectos.find(
+        proyecto => proyecto.id === id
+    );
 
-        const proyectoEncontrado = this.proyectos.find(
-            proyecto => proyecto.id === id
-                
+    if (!proyectoEncontrado) {
+        throw new AppError(
+            "No se encontró el proyecto.",
+            404
         );
-
-        if (!proyectoEncontrado) {
-            throw new Error("No se encontro el proyecto");
-        }
-
-        return proyectoEncontrado;
-    
     }
+
+    return proyectoEncontrado;
+}
 
    buscarPorCliente(clienteBuscado) {
     return this.proyectos.filter(
@@ -56,7 +54,7 @@ eliminarPorId(id) {
     );
 
     if (indice === -1) {
-        throw new Error("No se encontró el proyecto.");
+        throw new AppError("No se encontró el proyecto.", 404);
     }
 
     return this.proyectos.splice(indice, 1)[0];
