@@ -1,5 +1,7 @@
-import express, { json } from "express";
+import express from "express";
 import ProyectoRepository from "../../src/repositories/ProyectoRepository.js";
+import Cliente from "../../src/models/Cliente.js";
+import Proyecto from "../../src/models/Proyecto.js";
 
 const app = express();
 
@@ -15,15 +17,32 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/api/proyectos",(req,res) => {
+app.get("/api/proyectos", (req, res) => {
     res.json(repositorio.obtenerTodos());
 });
 
-app.post("/api/proyectos",(req,res) => {
-    console.log("Datos recibidos: ",req.body);
+app.post("/api/proyectos", (req, res) => {
 
-    res.status(201)-json({
-        message: "Proyecto recibido correctamente",datos: req.body
+    const datos = req.body;
+
+    const cliente = new Cliente(datos.cliente);
+
+    const proyecto = new Proyecto({
+        id: 1,
+        cliente,
+        tipoTrabajo: datos.tipoTrabajo,
+        responsable: datos.responsable
+    });
+
+    repositorio.agregar(proyecto);
+
+    console.log("Datos recibidos:", req.body);
+    console.log("Cliente creado:", cliente);
+    console.log("Proyecto creado:", proyecto);
+
+    res.status(201).json({
+        message: "Proyecto creado correctamente",
+        proyecto
     });
 });
 
